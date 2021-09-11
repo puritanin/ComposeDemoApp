@@ -1,0 +1,1 @@
+-keep class com.bicubictwice.composedemoapp.data.source.impl.retrofit.** { *; }

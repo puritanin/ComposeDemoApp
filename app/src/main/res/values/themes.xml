@@ -1,0 +1,5 @@
+<resources>
+    <style name="Theme.ComposeDemoApp" parent="Theme.MaterialComponents.Light">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+</resources>
