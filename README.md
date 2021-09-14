@@ -1,6 +1,10 @@
 # ComposeDemoApp
 Android Compose UI demo with REST API.
 
+Available on Google Play:
+
+https://play.google.com/store/apps/details?id=com.bicubictwice.composedemoapp
+
 The application demonstrates the ease of writing code with REST API and a list of items in asynchronous mode with pagination.
 
 Used:
