@@ -34,7 +34,7 @@ class GoogleBooksDataSourceRetrofitImpl @Inject constructor() : GoogleBooksDataS
 
             ResponseResult.Success(response?.items?.map {
                 BookInfo(
-                    id = it.id,
+                    id = it.id ?: "",
                     title = it.volumeInfo?.title ?: "",
                     subtitle = it.volumeInfo?.subtitle ?: "",
                     authors = it.volumeInfo?.authors ?: emptyList(),

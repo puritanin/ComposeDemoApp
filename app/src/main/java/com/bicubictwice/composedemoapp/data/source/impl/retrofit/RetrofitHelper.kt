@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitHelper {
 
     fun getClient(baseUrl: String): Retrofit {
-        val gson = GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
+        val gson = GsonBuilder().create()
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create(gson))

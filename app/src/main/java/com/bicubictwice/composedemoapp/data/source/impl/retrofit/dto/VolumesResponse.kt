@@ -1,60 +1,60 @@
 package com.bicubictwice.composedemoapp.data.source.impl.retrofit.dto
 
-import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
 class VolumesResponse {
 
-    @Expose
-    val kind: String = ""
+    @SerializedName("kind")
+    var kind: String? = ""
 
-    @Expose
-    val totalItems: Int = 0
+    @SerializedName("totalItems")
+    var totalItems: Int? = 0
 
-    @Expose
-    val items: List<VolumeItem> = emptyList()
+    @SerializedName("items")
+    var items: List<VolumeItem>? = emptyList()
 
     class VolumeItem {
 
-        @Expose
-        val id: String = ""
+        @SerializedName("id")
+        var id: String? = ""
 
-        @Expose
-        val volumeInfo: BookInfo? = null
+        @SerializedName("volumeInfo")
+        var volumeInfo: BookInfo? = null
     }
 
     class BookInfo {
 
-        @Expose
-        val title: String = ""
+        @SerializedName("title")
+        var title: String? = ""
 
-        @Expose
-        val subtitle: String = ""
+        @SerializedName("subtitle")
+        var subtitle: String? = ""
 
-        @Expose
-        val authors: List<String> = emptyList()
+        @SerializedName("authors")
+        var authors: List<String>? = emptyList()
 
-        @Expose
-        val publishedDate: String = ""
+        @SerializedName("publishedDate")
+        var publishedDate: String? = ""
 
-        @Expose
-        val pageCount: Int = 0
+        @SerializedName("pageCount")
+        var pageCount: Int? = 0
 
-        @Expose
-        val imageLinks: ImageLinks? = null
+        @SerializedName("imageLinks")
+        var imageLinks: ImageLinks? = null
 
-        @Expose
-        val language: String = ""
+        @SerializedName("language")
+        var language: String? = ""
 
-        @Expose
-        val infoLink: String = ""
+        @SerializedName("infoLink")
+        var infoLink: String? = ""
     }
 
     class ImageLinks {
 
-        @Expose
-        val smallThumbnail: String = ""
+        @SerializedName("smallThumbnail")
+        var smallThumbnail: String? = ""
 
-        @Expose
-        val thumbnail: String = ""
+        @SerializedName("thumbnail")
+        var thumbnail: String? = ""
     }
 }
