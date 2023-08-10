@@ -15,6 +15,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ExpandLess
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.items
+import androidx.paging.compose.itemContentType
 import com.bicubictwice.composedemoapp.ui.search.BookViewEntity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -41,6 +44,10 @@ fun LazyBooksList(
     val context = LocalContext.current
     val lazyListState = rememberLazyListState()
     val scope = rememberCoroutineScope()
+
+    val isScrollTopButtonVisible by remember {
+        derivedStateOf { lazyListState.firstVisibleItemIndex > 3 }
+    }
 
     var scrolledY = 0f
     var previousOffset = 0
@@ -68,19 +75,22 @@ fun LazyBooksList(
 
         lazyPagingItems?.let {
 
-            items(it) { item ->
-                item?.let {
-                    BookItem(
-                        item = item,
-                        onOpenLink = { link ->
-                            ContextCompat.startActivity(
-                                context,
-                                Intent(Intent.ACTION_VIEW, Uri.parse(link)),
-                                null
-                            )
-                        },
-                    )
-                }
+            items(
+                count = lazyPagingItems.itemCount,
+                key = null,
+                contentType = lazyPagingItems.itemContentType { null },
+            ) { index ->
+                val item = lazyPagingItems[index]!!
+                BookItem(
+                    item = item,
+                    onOpenLink = { link ->
+                        ContextCompat.startActivity(
+                            context,
+                            Intent(Intent.ACTION_VIEW, Uri.parse(link)),
+                            null
+                        )
+                    },
+                )
             }
 
             it.apply {
@@ -90,6 +100,7 @@ fun LazyBooksList(
                             LoadingItem(modifier = Modifier.padding(vertical = 20.dp))
                         }
                     }
+
                     loadState.refresh is LoadState.Error -> {
                         val e = it.loadState.refresh as LoadState.Error
                         item {
@@ -99,11 +110,13 @@ fun LazyBooksList(
                             )
                         }
                     }
+
                     loadState.append is LoadState.Loading -> {
                         item {
                             LoadingItem(modifier = Modifier.padding(vertical = 10.dp))
                         }
                     }
+
                     loadState.append is LoadState.Error -> {
                         val e = it.loadState.append as LoadState.Error
                         item {
@@ -118,17 +131,19 @@ fun LazyBooksList(
         }
     }
 
-    if (lazyListState.firstVisibleItemIndex > 3) {
+    if (isScrollTopButtonVisible) {
         Box(
             modifier = modifier.fillMaxSize(),
             contentAlignment = Alignment.BottomEnd,
         ) {
-            ScrollTopButton(onClick = {
-                scope.launch {
-                    delay(150L)
-                    lazyListState.animateScrollToItem(0)
+            ScrollTopButton(
+                onClick = {
+                    scope.launch {
+                        delay(150L)
+                        lazyListState.animateScrollToItem(0)
+                    }
                 }
-            })
+            )
         }
     }
 }

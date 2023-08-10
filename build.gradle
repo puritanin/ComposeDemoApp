@@ -1,26 +1,19 @@
 buildscript {
     ext {
-        kotlinVersion = '1.5.21'
-        kotlinCoroutinesVersion = '1.5.1'
-        roomVersion = '2.3.0'
-        jacksonVersion = '2.12.3'
-        composeVersion = '1.0.2'
-        hiltVersion = '2.37'
-        retrofitVersion = '2.9.0'
-        accompanistVersion = '0.17.0'
-        coilVersion = '1.3.2'
+        kotlinVersion = '1.9.0'
+        composeVersion = '1.5.0'
     }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21"
-        classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
+        classpath 'com.android.tools.build:gradle:8.1.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.47"
     }
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
